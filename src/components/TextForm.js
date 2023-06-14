@@ -3,14 +3,17 @@ import React, { useState } from "react";
 export default function TextForm(props) {
   const handleUpClick = () => {
     setText(text.toUpperCase());
+    props.showAlert("Converted to Uppercase", "success")
   };
-
+  
   const handleLowClick = () => {
     setText(text.toLowerCase());
+    props.showAlert("Converted to Lowercase", "success")
   };
-
+  
   const handleClrClick = () => {
     setText("");
+    props.showAlert("All text Cleared", "danger")
   };
 
   let ele = "";
@@ -22,6 +25,7 @@ export default function TextForm(props) {
       ele = ele + element + " ";
     }
     setText(ele);
+    props.showAlert("Each word capitalized", "success");
   };
 
   let sen = "";
@@ -47,12 +51,14 @@ export default function TextForm(props) {
     }
     setText(sen);
     sen = "";
+    props.showAlert("Capitalized the first word of a sentence", "success");
   };
 
   const handleCopy = () => {
     var cpy = document.getElementById("myBox");
     cpy.select();
     navigator.clipboard.writeText(cpy.value);
+    props.showAlert("Text copied", "success");
   };
 
   const handleOnChange = (event) => {
