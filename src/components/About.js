@@ -1,32 +1,31 @@
 import React, { useState } from "react";
 
 export default function About() {
+  const [myStyle, setMyStyle] = useState({
+    color: "black",
+    backgroundColor: "white",
+  });
 
-    const [myStyle, setMyStyle] = useState({
-        color: 'black',
-        backgroundColor: 'white'
-    })
+  // eslint-disable-next-line no-unused-vars
+  const [btnText, setBtnText] = useState("Enable Dark Mode");
 
-    // eslint-disable-next-line no-unused-vars
-    const [btnText, setBtnText] = useState("Enable Dark Mode")
-
-    const toggleStyle = () => {
-        // eslint-disable-next-line eqeqeq
-        if (myStyle.color == 'black') {
-            setMyStyle({
-                color: "white",
-                backgroundColor: 'black',
-                border: '1px solid white'
-            })
-            setBtnText("Enable Light Mode")
-        } else {
-            setMyStyle({
-                color: "black",
-                backgroundColor: 'white'
-            })
-            setBtnText("Enable Dark Mode")
-        }
+  const toggleStyle = () => {
+    // eslint-disable-next-line eqeqeq
+    if (myStyle.color == "black") {
+      setMyStyle({
+        color: "white",
+        backgroundColor: "black",
+        border: "1px solid white",
+      });
+      setBtnText("Enable Light Mode");
+    } else {
+      setMyStyle({
+        color: "black",
+        backgroundColor: "white",
+      });
+      setBtnText("Enable Dark Mode");
     }
+  };
 
   return (
     <>
@@ -134,7 +133,13 @@ export default function About() {
           </div>
         </div>
         <div className="container my-3">
-            <button onClick={toggleStyle} type="button" className="btn btn-primary">Enable Dark mode</button>
+          <button
+            onClick={toggleStyle}
+            type="button"
+            className="btn btn-primary"
+          >
+            {btnText}
+          </button>
         </div>
       </div>
     </>

@@ -18,7 +18,7 @@ export default function TextForm(props) {
     let txt = text.split(" ");
     for (let i = 0; i < txt.length; i++) {
       let element = txt[i].charAt(0).toUpperCase();
-      element = element + txt[i].slice(1);
+      element = element + txt[i].slice(1).toLowerCase();
       ele = ele + element + " ";
     }
     setText(ele);
@@ -37,16 +37,22 @@ export default function TextForm(props) {
         element = txt[i].charAt(0).toUpperCase();
         element = element + txt[i].slice(1).toLowerCase();
       }
-      console.log(element)
-      if (i !== (txt.length-1)) {
+      console.log(element);
+      if (i !== txt.length - 1) {
         sen = sen + element + ". ";
       } else {
         sen = sen + element;
       }
-      console.log(sen)
+      console.log(sen);
     }
     setText(sen);
     sen = "";
+  };
+
+  const handleCopy = () => {
+    var cpy = document.getElementById("myBox");
+    cpy.select();
+    navigator.clipboard.writeText(cpy.value);
   };
 
   const handleOnChange = (event) => {
@@ -65,6 +71,9 @@ export default function TextForm(props) {
             className="form-control"
             value={text}
             onChange={handleOnChange}
+            style={{
+              backgroundColor: props.mode === "dark" ? "grey" : "white", color: props.mode === "dark" ? "white" : "black"
+            }}
             id="myBox"
             rows="8"
             placeholder="Enter your text here"
@@ -73,7 +82,10 @@ export default function TextForm(props) {
         <button className="btn btn-primary mx-1 my-1" onClick={handleUpClick}>
           Convert to Uppercase
         </button>
-        <button className="btn btn-secondary mx-1 my-1" onClick={handleLowClick}>
+        <button
+          className="btn btn-secondary mx-1 my-1"
+          onClick={handleLowClick}
+        >
           Convert to Lowercase
         </button>
         <button
@@ -88,6 +100,9 @@ export default function TextForm(props) {
         >
           Sentenced Case
         </button>
+        <button className="btn btn-warning mx-1 my-1" onClick={handleCopy}>
+          Copy Text
+        </button>
         <button className="btn btn-danger mx-1 my-1" onClick={handleClrClick}>
           Clear
         </button>
@@ -99,7 +114,7 @@ export default function TextForm(props) {
         </p>
         <p>{0.008 * text.split(" ").length} Minutes to read</p>
         <h2>Preview</h2>
-        <p>{text}</p>
+        <p>{text.length>0?text:"Enter something in the textbox above to preview it here"}</p>
       </div>
     </>
   );
