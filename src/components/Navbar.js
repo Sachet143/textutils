@@ -86,7 +86,7 @@ export default function Navbar(props) {
           </ul>
           <div className="form-check form-switch mx-2 ">
             <input
-              className="form-check-input"
+              className="form-check-input newDark"
               type="checkbox"
               role="switch"
               id="flexSwitchCheckDefault"

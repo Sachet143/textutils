@@ -23,11 +23,51 @@ function App() {
   };
 
   const [theme, setTheme] = useState("black");
-  const handleTheme = (darkTheme) => {
-    setTheme(darkTheme);
+
+  const handleTheme = async (darkTheme) => {
+    console.log(darkTheme);
+    setTheme(() => darkTheme);
+    console.log(theme);
+    document.querySelector(".newDark").checked = false;
+    toggleShades();
+  };
+
+  const toggleShades = () => {
+    let switchMode = document.querySelector(".newDark").checked;
+    if (switchMode === true && theme === "black") {
+      setMode("dark");
+      setTextMode("light");
+      document.body.style.backgroundColor = "#333";
+      document.body.style.color = "#fff";
+      showAlert("Black Dark Mode has been enabled", "success");
+      // document.title = "TextUtils - Dark Mode (Black)";
+    } else if (switchMode === true && theme === "blue") {
+      setMode("blue");
+      setTextMode("light");
+      document.body.style.backgroundColor = "rgb(9 13 48)";
+      document.body.style.color = "#fff";
+      showAlert("Blue Dark Mode has been enabled", "success");
+      // document.title = "TextUtils - Dark Mode (Blue)";
+    } else if (switchMode === true && theme === "red") {
+      setMode("red");
+      setTextMode("light");
+      document.body.style.backgroundColor = "rgb(80 15 9)";
+      document.body.style.color = "#fff";
+      showAlert("Red Dark Mode has been enabled", "success");
+      // document.title = "TextUtils - Dark Mode (red)";
+    } else {
+      setMode("light");
+      setTextMode("dark");
+      document.body.style.backgroundColor = "#eee";
+      document.body.style.color = "#222";
+      showAlert("Dark Mode has been disabled", "success");
+      // document.title = "TextUtils - Light Mode";
+    }
   };
 
   const toggleMode = () => {
+    // let switchMode = document.querySelector(".newDark").checked;
+    // console.log(switchMode);
     if (mode === "light" && textMode === "dark") {
       if (theme === "black") {
         setMode("dark");
@@ -35,21 +75,21 @@ function App() {
         document.body.style.backgroundColor = "#333";
         document.body.style.color = "#fff";
         showAlert("Black Dark Mode has been enabled", "success");
-        document.title = "TextUtils - Dark Mode (Black)";
+        // document.title = "TextUtils - Dark Mode (Black)";
       } else if (theme === "blue") {
-        setMode("primary");
+        setMode("blue");
         setTextMode("light");
-        document.body.style.backgroundColor = "rgb(37 155 255)";
+        document.body.style.backgroundColor = "rgb(9 13 48)";
         document.body.style.color = "#fff";
         showAlert("Blue Dark Mode has been enabled", "success");
-        document.title = "TextUtils - Dark Mode (Blue)";
+        // document.title = "TextUtils - Dark Mode (Blue)";
       } else if (theme === "red") {
-        setMode("danger");
+        setMode("red");
         setTextMode("light");
-        document.body.style.backgroundColor = "rgb(253 109 109)";
+        document.body.style.backgroundColor = "rgb(80 15 9)";
         document.body.style.color = "#fff";
         showAlert("Red Dark Mode has been enabled", "success");
-        document.title = "TextUtils - Dark Mode (red)";
+        // document.title = "TextUtils - Dark Mode (red)";
       }
     } else {
       setMode("light");
@@ -57,7 +97,7 @@ function App() {
       document.body.style.backgroundColor = "#eee";
       document.body.style.color = "#222";
       showAlert("Dark Mode has been disabled", "success");
-      document.title = "TextUtils - Light Mode";
+      // document.title = "TextUtils - Light Mode";
     }
   };
 
@@ -66,7 +106,7 @@ function App() {
       <Navbar
         title="TextUtils"
         mode={mode}
-        aboutText="About TextUtils"
+        aboutText="About"
         textMode={textMode}
         toggleMode={toggleMode}
         handleTheme={handleTheme}
@@ -74,7 +114,11 @@ function App() {
       <Alert alert={alert} />
       <div className="container my-3">
         <Routes>
-          <Route exact path="/about" element={<About id="about" />} />
+          <Route
+            exact
+            path="/about"
+            element={<About mode={mode} id="about" />}
+          />
           <Route
             exact
             path="/"
@@ -82,7 +126,7 @@ function App() {
               <TextForm
                 mode={mode}
                 showAlert={showAlert}
-                heading="Enter the text to analyze below"
+                heading="Try TextUtils - Word Counter, Character Counter"
                 id="home"
               />
             }
